@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TwitterCloner.Data;
 
 namespace TwitterCloner.Migrations
 {
     [DbContext(typeof(TwitterDbContext))]
-    partial class TwitterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220130195750_undo")]
+    partial class undo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

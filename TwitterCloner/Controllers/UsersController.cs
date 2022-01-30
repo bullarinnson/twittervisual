@@ -27,13 +27,14 @@ namespace TwitterCloner.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("{id}")]
         public async Task<ActionResult<User>> GetUserById(int id)
         {
             try
             {
 
-                User use = await _repository.GetUserByIdAsync(id);
+                UserDTO use = await _repository.GetUserByIdAsync(id);
                 if (use == null)
                 {
                     return NotFound();

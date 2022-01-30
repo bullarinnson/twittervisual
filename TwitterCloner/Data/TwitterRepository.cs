@@ -48,7 +48,7 @@ namespace TwitterCloner.Data
             List<User> users;
             using (var db = _dbContext)
             {
-                users = await db.Users.Include(c=>c.Comments).ToListAsync();
+                users = await db.Users.Include(c=> c.Comments).ToListAsync();
             }
             List<UserDTO> listToReturn = new List<UserDTO>();
 
@@ -63,7 +63,7 @@ namespace TwitterCloner.Data
                 useToAdd.Post = use.Post;
                 useToAdd.Image = use.Image;
                 useToAdd.ProfilePicture = use.ProfilePicture;
-               
+                /*useToAdd.Comments = use.Comments;*/
 
                 listToReturn.Add(useToAdd);
 
@@ -80,25 +80,27 @@ namespace TwitterCloner.Data
             }
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<UserDTO> GetUserByIdAsync(int id)
         {
             User s;
 
-
-
             using (var db = _dbContext)
-
+            
             {
 
-
-
-                s = await db.Users.Include(c => c.Comments).FirstOrDefaultAsync(x => x.Id == id);
+                s = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
             }
 
+            UserDTO useToReturn = new UserDTO();
 
+            useToReturn.Id = s.Id;
+            useToReturn.Name = s.Name;
+            useToReturn.UserName = s.UserName;
+            useToReturn.ProfilePicture = s.ProfilePicture;
+            useToReturn.Post = s.Post;
+            useToReturn.Image = s.Image;
 
-
-            return s;
+            return useToReturn;
         }
         public Comment UpdateComment(int id, Comment comment)
         {
