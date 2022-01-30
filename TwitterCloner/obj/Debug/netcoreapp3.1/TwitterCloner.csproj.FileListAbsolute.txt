@@ -1,0 +1,5 @@
+C:\Users\arnar\source\repos\TwitterCloner\TwitterCloner\obj\Debug\netcoreapp3.1\TwitterCloner.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\arnar\source\repos\TwitterCloner\TwitterCloner\obj\Debug\netcoreapp3.1\TwitterCloner.AssemblyInfoInputs.cache
+C:\Users\arnar\source\repos\TwitterCloner\TwitterCloner\obj\Debug\netcoreapp3.1\TwitterCloner.AssemblyInfo.cs
+C:\Users\arnar\source\repos\TwitterCloner\TwitterCloner\obj\Debug\netcoreapp3.1\TwitterCloner.csproj.CoreCompileInputs.cache
+C:\Users\arnar\source\repos\TwitterCloner\TwitterCloner\obj\Debug\netcoreapp3.1\TwitterCloner.MvcApplicationPartsAssemblyInfo.cache
