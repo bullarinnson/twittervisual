@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TwitterCloner.Data;
 
 namespace TwitterCloner.Migrations
 {
     [DbContext(typeof(TwitterDbContext))]
-    partial class TwitterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220130203337_what")]
+    partial class what
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,7 @@ namespace TwitterCloner.Migrations
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")
@@ -45,7 +47,7 @@ namespace TwitterCloner.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Comments");
                 });
@@ -79,13 +81,11 @@ namespace TwitterCloner.Migrations
 
             modelBuilder.Entity("TwitterCloner.Models.Comment", b =>
                 {
-                    b.HasOne("TwitterCloner.Models.User", "User")
+                    b.HasOne("TwitterCloner.Models.User", null)
                         .WithMany("Comments")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TwitterCloner.Models.User", b =>

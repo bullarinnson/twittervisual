@@ -2,21 +2,38 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TwitterCloner.Data;
 
 namespace TwitterCloner.Migrations
 {
     [DbContext(typeof(TwitterDbContext))]
-    partial class TwitterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220130202816_egbaraveitekki")]
+    partial class egbaraveitekki
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CommentUser", b =>
+                {
+                    b.Property<int>("CommentsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CommentsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("CommentUser");
+                });
 
             modelBuilder.Entity("TwitterCloner.Models.Comment", b =>
                 {
@@ -37,15 +54,13 @@ namespace TwitterCloner.Migrations
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -77,20 +92,19 @@ namespace TwitterCloner.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TwitterCloner.Models.Comment", b =>
+            modelBuilder.Entity("CommentUser", b =>
                 {
-                    b.HasOne("TwitterCloner.Models.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
+                    b.HasOne("TwitterCloner.Models.Comment", null)
+                        .WithMany()
+                        .HasForeignKey("CommentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TwitterCloner.Models.User", b =>
-                {
-                    b.Navigation("Comments");
+                    b.HasOne("TwitterCloner.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
