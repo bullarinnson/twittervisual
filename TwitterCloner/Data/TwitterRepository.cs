@@ -51,6 +51,22 @@ namespace TwitterCloner.Data
                 users = await db.Users.Include(c => c.Comments).ToListAsync();
             }
             List<UserDTO> listToReturn = new List<UserDTO>();
+            List<CommentDTO> CommentsDTO = new List<CommentDTO>();
+            foreach (Comment c in users.SelectMany(c => c.Comments))
+            {
+                CommentDTO dto = new CommentDTO
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ProfilePicture = c.ProfilePicture,
+                    UserName = c.UserName,
+                    Content = c.Content
+                };
+                dto.ProfilePicture = c.ProfilePicture;
+                dto.UserId = c.UserId;
+
+                CommentsDTO.Add(dto);
+            }
 
 
             foreach (User use in users)
@@ -63,7 +79,7 @@ namespace TwitterCloner.Data
                 useToAdd.Post = use.Post;
                 useToAdd.Image = use.Image;
                 useToAdd.ProfilePicture = use.ProfilePicture;
-
+                useToAdd.Comments = CommentsDTO.Where(c => c.UserId == use.Id).ToList();
                 listToReturn.Add(useToAdd);
 
             }
@@ -117,6 +133,8 @@ namespace TwitterCloner.Data
             useToReturn.ProfilePicture = s.ProfilePicture;
             useToReturn.Post = s.Post;
             useToReturn.Image = s.Image;
+            useToReturn.Comments = CommentsDTO;
+
 
             return useToReturn;
         }
